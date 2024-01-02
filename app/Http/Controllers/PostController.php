@@ -3,19 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Usuario;
+use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 
-class Post extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $registro= DB::table("posts")->get();
+        $registro = Post::with('usuarios')->get();
+        $usuarios = Usuario::with('post')->get();
 
-        return view("post",["registro" =>$registro]);
+        return view("post", ["registro" => $registro, "usuarios" => $usuarios]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -31,26 +35,12 @@ class Post extends Controller
     public function store(Request $request)
     {
         DB::table('posts')->insert([
-            "descripcion"=>$request->input("descripcion")
+            "title"=>$request->input("title"),
+            "descripcion"=>$request->input("descripcion"),
+            "usuario_id"=>$request->input("user")
         ]);
 
         return $this->index();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
    
@@ -81,5 +71,18 @@ class Post extends Controller
     {
         DB::table("posts")->where('id', $id)->delete();
         return $this->index();
+    }
+
+    public function getPostsByUserId($user_id)
+    {
+        $userPosts = DB::table("posts")->where("usuario_id", $user_id)->orderBy('title')->get();
+
+        return view("userPosts", ["posts" => $userPosts]);
+    }
+
+    public function getRecentPosts()
+    {
+        $recentPosts = Post::orderBy('created_at', 'desc')->take(12)->get();
+        return view("recentPosts", ["posts" => $recentPosts]);
     }
 }

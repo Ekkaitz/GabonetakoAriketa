@@ -41,7 +41,14 @@
 
 <form action="/post/gorde">
         @csrf
+
+        <input type="text" name="title" id="title" placeholder="Title">
         <textarea type="text" name="descripcion" id="descripcion" placeholder="Descripcion" cols="30" rows="10"></textarea>
+        <select name="user" id="user">  
+            @foreach($usuarios as $user)
+                <option value="{{$user->id}}">{{$user->izena}}</option>
+            @endforeach
+        </select>
 
         <input type="submit" value="Bidali">
 </form>
@@ -49,15 +56,11 @@
 <table>
         <tr>
             <td><b>ID</b></td>
-
+            <td><b>TITLE</b></td>
             <td><b>DESKRIPZIOA</b></td>
-
             <td><b>GAIA(K)</b></td>
-
             <td><b>USER</b></td>
-
             <td></td>
-
             <td></td>
         </tr>
         @foreach($registro as $post)
@@ -68,13 +71,21 @@
                 </td>
 
                 <td>
+                    {{$post->title}}
+                </td>
+
+                <td>
                     <b>DESKRIPZIOA: </b>
                     {{$post->descripcion}}
                 </td>
 
-                <td></td>
+                <td>
+                    {{$post->usuarios?->izena}}
+                </td>
                 
-                <td></td>
+                <td>
+                    {{$post->id_usuario}}
+                </td>
 
                 <td>
                     <form action="/post/editatu">

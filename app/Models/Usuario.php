@@ -10,7 +10,7 @@ class Usuario extends Model
     use HasFactory;
 
     public function post(){
-        return $this->belongsTo('App\Models\Usuario');
+        return $this->hasMany('App\Models\Post');
     } 
 
     public function direccion()

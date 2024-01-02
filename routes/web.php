@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Usuario;
 use App\Http\Controllers\Direccion;
 use App\Http\Controllers\Esleitu;
-use App\Http\Controllers\Post;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,8 +38,11 @@ Route::get('/helbidea/update', [Direccion::class,"update"]);
 Route::get('/helbidea/ezabatu/{id}', [Direccion::class,"destroy"]);
 Route::get('/helbidea/berria', function(){ return view("helbideaSortu");});
 
-Route::get('/post', [Post::class,"index"]);
-Route::get('/post/gorde', [Post::class,"store"]);
-Route::get('/post/editatu', [Post::class,"editatu"]);
-Route::get('/post/update', [Post::class,"update"]);
-Route::get('/post/ezabatu/{id}', [Post::class,"destroy"]);
+Route::get('/post', [PostController::class,"index"]);
+Route::get('/post/gorde', [PostController::class,"store"]);
+Route::get('/post/editatu', [PostController::class,"editatu"]);
+Route::get('/post/update', [PostController::class,"update"]);
+Route::get('/post/ezabatu/{id}', [PostController::class,"destroy"]);
+
+Route::get('/api/posts/recent', [PostController::class, 'getRecentPosts']);
+Route::get('/api/posts/{user_id}', [PostController::class, 'getPostsByUserId']);

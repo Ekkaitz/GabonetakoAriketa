@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
 
     public function usuarios(){
-        return $this->hasMany('App\Models\Usuario');
+        return $this->belongsTo('App\Models\Usuario','id_usuario');
     }
 
     public function temas(){

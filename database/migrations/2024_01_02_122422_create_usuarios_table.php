@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('izena');
             $table->string('abizena');
-            $table->foreignId('id_post')->nullable()->constrained('posts')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
