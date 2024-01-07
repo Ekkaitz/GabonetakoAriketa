@@ -90,13 +90,19 @@
     </form>
 
     <table>
-        @foreach($usuarios as $user)
-            <tr>
-                <td>{{$user->izena}}</td>
-                <td>{{$user->direccion->direccion}}</td>
-            </tr>
-        @endforeach
-    </table>
+    @foreach($usuarios as $user)
+        <tr>
+            <td>{{$user->izena}}</td>
+            <td>
+                @if($user->direccion)
+                    {{$user->direccion->direccion}}
+                @else
+                    No address assigned
+                @endif
+            </td>
+        </tr>
+    @endforeach
+</table>
 
 
 

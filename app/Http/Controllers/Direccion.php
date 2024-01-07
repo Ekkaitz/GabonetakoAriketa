@@ -13,6 +13,7 @@ class Direccion extends Controller
     public function index()
     {   
         $registro= DB::table("direcciones")->get();
+        
         return view("helbideak",["registro" =>$registro]);
     }
 
