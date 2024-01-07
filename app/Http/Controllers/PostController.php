@@ -14,8 +14,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        $registro = Post::with('usuarios')->get();
-        $usuarios = Usuario::with('post')->get();
+        $registro = DB::table('posts')
+            ->join('usuarios', 'posts.usuario_id', '=', 'usuarios.id')
+            ->select('posts.*', 'usuarios.izena as usuario_izena')
+            ->get();
+            
+        $usuarios = DB::table('usuarios')->get();
 
         return view("post", ["registro" => $registro, "usuarios" => $usuarios]);
     }

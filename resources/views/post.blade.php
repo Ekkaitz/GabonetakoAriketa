@@ -66,7 +66,7 @@
             <li><a href="/">Erabiltzailea gehitu</a></li>
             <li><a href="/helbidea">Helbideak</a></li>
             <li><a href="/post">POST-ak</a></li>
-            <li><a href="/api/posts/recent">Azken post-ak</a></li>
+            <li><a href="/api/posts/recent">Azken post-ak</a></li>  
         </ul>
     </header>
 <h1>POST-ak</h1>
@@ -116,11 +116,11 @@
                 </td>
 
                 <td>
-                    {{$post->usuarios?->izena}}
+                    
                 </td>
                 
                 <td>
-                    {{$post->id_usuario}}
+                    {{$post->usuario_izena}}
                 </td>
 
                 <td>
